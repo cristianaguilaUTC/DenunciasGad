@@ -15,4 +15,4 @@ class Denuncia(models.Model):
 
     def _str_(self):
         fila="{0}: {1} {2} {3} {4} {5} {6} {7} {8}"
-        return fila.format(self.id, self.usuario, self.titulo, self.descripcion, self.ubicacion, self.latitud, self.longitud, self.estado, self.fecha_creacion)
+        return fila.format(self.id, self.usuario.nombre, self.titulo, self.descripcion, self.ubicacion, self.latitud, self.longitud, self.estado, self.fecha_creacion)
