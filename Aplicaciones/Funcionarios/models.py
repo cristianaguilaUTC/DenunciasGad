@@ -9,6 +9,6 @@ class Funcionario(models.Model):
     contrasena = models.CharField(max_length=128, null=True, blank=True)
 
     
-    def _str_(self):
+    def __str__(self):
         fila="{0}: {1} {2} {3} "
         return fila.format(self.id, self.nombre, self.correo)

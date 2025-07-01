@@ -1,0 +1,60 @@
+{% extends './plantilla.html' %}
+
+{% block contenido %}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Listado de Denuncias</h1>
+
+    <div class="mb-3">
+        <a href="/denuncias/nuevaDenuncia/" class="btn btn-success">Registrar Nueva Denuncia</a>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+                <th>Latitud</th>
+                <th>Longitud</th>
+                <th>Referencia</th>
+                <th>Estado</th>
+                <th>Evidencia</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for denuncia in denuncias %}
+            <tr>
+                <td>{{ denuncia.id }}</td>
+                <td>{{ denuncia.usuario.nombre }} {{ denuncia.usuario.apellido }}</td>
+                <td>{{ denuncia.tipo_denuncia }}</td>
+                <td>{{ denuncia.descripcion|truncatewords:10 }}</td>
+                <td>{{ denuncia.latitud }}</td>
+                <td>{{ denuncia.longitud }}</td>
+                <td>{{ denuncia.referencia }}</td>
+                <td>{{ denuncia.estado }}</td>
+                <td>
+                    {% if denuncia.evidencia %}
+                        <a href="{{ denuncia.evidencia.url }}" target="_blank" class="btn btn-sm btn-secondary">Ver Archivo</a>
+                    {% else %}
+                        Sin evidencia
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="/denuncias/editarDenuncia/{{ denuncia.id }}/" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="/denuncias/eliminarDenuncia/{{ denuncia.id }}/" class="btn btn-danger btn-sm"
+                       onclick="return confirm('¿Estás seguro de eliminar esta denuncia?');">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="10" class="text-center">No hay denuncias registradas.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

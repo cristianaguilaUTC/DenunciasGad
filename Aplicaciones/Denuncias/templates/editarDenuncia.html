@@ -1,0 +1,72 @@
+{% extends './plantilla.html' %}
+
+{% block contenido %}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Editar Denuncia</h2>
+
+    <form action="/denuncias/procesarEdicionDenuncia/{{ denunciaEditar.id }}/" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="usuario" class="form-label">Usuario:</label>
+            <select name="usuario" class="form-select" required>
+                <option value="">-- Selecciona un usuario --</option>
+                {% for usuario in usuarios %}
+                    <option value="{{ usuario.id }}" {% if usuario.id == denunciaEditar.usuario.id %}selected{% endif %}>
+                        {{ usuario.nombre }} {{ usuario.apellido }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="tipo_denuncia" class="form-label">Tipo de Denuncia:</label>
+            <input type="text" name="tipo_denuncia" class="form-control" value="{{ denunciaEditar.tipo_denuncia }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción:</label>
+            <textarea name="descripcion" class="form-control" rows="4" required>{{ denunciaEditar.descripcion }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="latitud" class="form-label">Latitud:</label>
+            <input type="text" name="latitud" class="form-control" value="{{ denunciaEditar.latitud }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="longitud" class="form-label">Longitud:</label>
+            <input type="text" name="longitud" class="form-control" value="{{ denunciaEditar.longitud }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="referencia" class="form-label">Referencia:</label>
+            <input type="text" name="referencia" class="form-control" value="{{ denunciaEditar.referencia }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="evidencia" class="form-label">Evidencia (subir nuevo archivo si desea cambiar):</label>
+            <input type="file" name="evidencia" class="form-control">
+            {% if denunciaEditar.evidencia %}
+                <small>Archivo actual: <a href="{{ denunciaEditar.evidencia.url }}" target="_blank">Ver evidencia</a></small>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="estado" class="form-label">Estado:</label>
+            <select name="estado" class="form-select" required>
+                <option value="pendiente" {% if denunciaEditar.estado == "pendiente" %}selected{% endif %}>Pendiente</option>
+                <option value="en proceso" {% if denunciaEditar.estado == "en proceso" %}selected{% endif %}>En Proceso</option>
+                <option value="resuelto" {% if denunciaEditar.estado == "resuelto" %}selected{% endif %}>Resuelto</option>
+            </select>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Actualizar Denuncia</button>
+            <a href="/denuncias/" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

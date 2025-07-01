@@ -1,0 +1,42 @@
+{% extends './plantilla.html' %}
+
+{% block contenido %}
+
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Listado de Usuarios</h1>
+
+  <div class="mb-3">
+     <a href="nuevoUsuario" class="btn btn-primary">Agregar Nuevo Usuario</a>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Correo</th>
+        <th>Cédula</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for usuario in usuarios %}
+      <tr>
+        <td>{{ usuario.id }}</td>
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.apellido }}</td>
+        <td>{{ usuario.correo }}</td>
+        <td>{{ usuario.cedula }}</td>
+        <td>
+          <a href="editarUsuario/{{ usuario.id }}" class="btn btn-warning btn-sm">Editar</a>
+          <a href="#" class="btn btn-danger btn-sm"
+             onclick="return confirm('¿Estás seguro de eliminar este usuario?');">Eliminar</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

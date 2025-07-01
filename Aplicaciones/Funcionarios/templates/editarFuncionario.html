@@ -1,0 +1,39 @@
+{% extends './plantilla.html' %}
+
+{% block contenido %}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Editar Funcionario</h2>
+
+    <form action="/funcionarios/procesarEdicionFuncionario/{{ funcionarioEditar.id }}/" method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input type="text" name="nombre" class="form-control" value="{{ funcionarioEditar.nombre }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido:</label>
+            <input type="text" name="apellido" class="form-control" value="{{ funcionarioEditar.apellido }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="correo" class="form-label">Correo Electrónico:</label>
+            <input type="email" name="correo" class="form-control" value="{{ funcionarioEditar.correo }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="contrasena" class="form-label">Nueva Contraseña (opcional):</label>
+            <input type="password" name="contrasena" class="form-control">
+            <small class="text-muted">Si no quieres cambiar la contraseña, deja este campo vacío.</small>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Actualizar Funcionario</button>
+            <a href="/funcionarios/" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

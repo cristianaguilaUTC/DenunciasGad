@@ -1,0 +1,42 @@
+{% extends './plantilla.html' %}
+
+{% block contenido %}
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Registrar Nuevo Usuario</h2>
+
+  <form action="guardar_usuario" method="POST" id="formUsuario">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label>Nombre:</label>
+      <input type="text" name="nombre" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label>Apellido:</label>
+      <input type="text" name="apellido" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label>Correo:</label>
+      <input type="email" name="correo" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label>Cédula:</label>
+      <input type="text" name="cedula" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label>Contraseña:</label>
+      <input type="password" name="contrasena" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar Usuario</button>
+    <a href="{% url 'inicio_usuarios' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $("#formUsuario").validate();
+  });
+</script>
+
+{% endblock %}

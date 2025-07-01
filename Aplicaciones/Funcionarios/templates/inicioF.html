@@ -1,0 +1,44 @@
+{% extends './plantilla.html' %}
+
+{% block contenido %}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Listado de Funcionarios</h1>
+
+    <div class="mb-3">
+        <a href="/funcionarios/nuevoFuncionario/" class="btn btn-success">Agregar Nuevo Funcionario</a>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for funcionario in funcionarios %}
+            <tr>
+                <td>{{ funcionario.id }}</td>
+                <td>{{ funcionario.nombre }}</td>
+                <td>{{ funcionario.apellido }}</td>
+                <td>{{ funcionario.correo }}</td>
+                <td>
+                    <a href="/funcionarios/editarFuncionario/{{ funcionario.id }}/" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="/funcionarios/eliminarFuncionario/{{ funcionario.id }}/" class="btn btn-danger btn-sm"
+                       onclick="return confirm('¿Estás seguro de eliminar este funcionario?');">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">No hay funcionarios registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
